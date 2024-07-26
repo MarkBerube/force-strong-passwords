@@ -1,10 +1,9 @@
 === Force Strong Passwords ===
-Contributors: boogah, gyrus, simonwheatley, sparanoid, jpry, zyphonic
-Donate link: https://www.girldevelopit.com/donate
+Contributors: MarkBerube, boogah, gyrus, simonwheatley, sparanoid, jpry, zyphonic
 Tags: passwords, security, users, profile
 Requires at least: 3.7
-Tested up to: 4.9
-Stable tag: 1.8
+Tested up to: 6.5.5
+Stable tag: 2.0
 
 Forces privileged users to set a strong password.
 
