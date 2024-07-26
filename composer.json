@@ -1,0 +1,14 @@
+{
+    "name": "mark.berube/force-strong-passwords",
+    "description": "Forces privileged users to set a strong password.",
+    "type": "project",
+    "config": {
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        }
+    },
+    "require-dev": {
+        "wp-coding-standards/wpcs": "^3.0",
+        "phpunit/phpunit": "^10.5"
+    }
+}
