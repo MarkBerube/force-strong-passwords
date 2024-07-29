@@ -33,7 +33,7 @@ if ( ! function_exists( 'add_action' ) ) {
 define( 'MB_FSP_PLUGIN_BASE', __FILE__ );
 
 // Allow changing the version number in only one place (the header above).
-$plugin_data = get_file_data( FSP_PLUGIN_BASE, array( 'Version' => 'Version' ) );
+$plugin_data = get_file_data( MB_FSP_PLUGIN_BASE, array( 'Version' => 'Version' ) );
 define( 'MB_FSP_PLUGIN_VERSION', $plugin_data['Version'] );
 
 define( 'MB_FSP_COMMON_PASSWORD_FILE', plugin_dir_path( __DIR__ ) . '/mb-force-strong-password-common-list.txt' );
