@@ -2,6 +2,7 @@
     "name": "mark.berube/force-strong-passwords",
     "description": "Forces privileged users to set a strong password.",
     "type": "project",
+    "license": "GPL-3.0-or-later",
     "config": {
         "allow-plugins": {
             "dealerdirect/phpcodesniffer-composer-installer": true
