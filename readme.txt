@@ -5,7 +5,7 @@ Requires at least: 3.7
 Tested up to: 6.5.5
 Stable tag: 2.0
 
-Forces privileged users to set a strong password.
+Forces privileged users to set a strong password. test
 
 == Description ==
 The user profile editor includes a JavaScript-powered password strength indicator. However, there is nothing currently built into WordPress core to prevent users from entering weak passwords. Users changing their password to something weak is one of the most vulnerable aspects of a WordPress installation.
