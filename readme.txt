@@ -7,7 +7,7 @@ Stable tag: 2.0
 
 Forces privileged users to set a strong password.
 
-== Description ==
+== Description == test
 The user profile editor includes a JavaScript-powered password strength indicator. However, there is nothing currently built into WordPress core to prevent users from entering weak passwords. Users changing their password to something weak is one of the most vulnerable aspects of a WordPress installation.
 
 With Force Strong Passwords activated, strong passwords are enforced for users with `publish_posts`, `upload_files` & `edit_published_posts` capabilities. Should a user with these capabilities (normally an Author, Editor or Administrator) attempt to change their password, the strong password enforcement will be triggered.
