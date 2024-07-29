@@ -1,6 +1,6 @@
 {
     "name": "mark.berube/force-strong-passwords",
-    "description": "Forces privileged users to set a strong password.",
+    "description": "Forces privileged users to set a strong password",
     "type": "project",
     "license": "GPL-3.0-or-later",
     "config": {
