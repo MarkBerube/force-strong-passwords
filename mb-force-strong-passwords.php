@@ -36,24 +36,27 @@ define( 'MB_FSP_PLUGIN_BASE', __FILE__ );
 $plugin_data = get_file_data( FSP_PLUGIN_BASE, array( 'Version' => 'Version' ) );
 define( 'MB_FSP_PLUGIN_VERSION', $plugin_data['Version'] );
 
-define( 'MB_FSP_COMMON_PASSWORD_FILE', plugin_dir_path( __DIR__ ) . '/mb-force-strong-password-common-list.txt');
+define( 'MB_FSP_COMMON_PASSWORD_FILE', plugin_dir_path( __DIR__ ) . '/mb-force-strong-password-common-list.txt' );
 
 if ( ! defined( 'MB_FSP_CAPS_CHECK' ) ) {
-    define( 'MB_FSP_CAPS_CHECK', 'publish_posts,upload_files,edit_published_posts' );
+	define( 'MB_FSP_CAPS_CHECK', 'publish_posts,upload_files,edit_published_posts' );
 }
 
 if ( ! defined( 'MB_FSP_WEAK_ROLES' ) ) {
-    define('MB_FSP_WEAK_ROLES', 'subscriber,contributor');
+	define( 'MB_FSP_WEAK_ROLES', 'subscriber,contributor' );
 }
 
-require plugin_dir_path( __FILE__ ) . 'includes/class-mb-strong-password-manager.php';
+require_once plugin_dir_path( __FILE__ ) . 'includes/class-mb-strong-password-manager.php';
 
+/**
+ * Initializes the plugin on WP hooks.
+ */
 function mb_fsp_init() {
 	// Text domain for translation.
-	load_plugin_textdomain( 'mb-force-strong-passwords', false, dirname( plugin_basename ( __FILE__ ) ) . '/languages/' );
+	load_plugin_textdomain( 'mb-force-strong-passwords', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 
 	// Initializing WPHooks.
-    add_action( 'validate_password_reset', 'MB_Strong_Password_Manager::validate_strong_password', 10, 2 );
+	add_action( 'validate_password_reset', 'MB_Strong_Password_Manager::validate_strong_password', 10, 2 );
 	add_action( 'user_profile_update_errors', 'mb_fsp_validate_profile_update', 0, 3 );
 }
 
@@ -62,8 +65,12 @@ add_action( 'plugins_loaded', 'mb_fsp_init' );
 
 /**
  * Check user profile update and throw an error if the password isn't strong.
+ *
+ * @param WP_Error $errors WordPress error object.
+ * @param bool     $update whether this is a user update.
+ * @param stdClass $user_data WordPress user object.
+ * @return mixed
  */
 function mb_fsp_validate_profile_update( $errors, $update, $user_data ) {
-    return MB_Strong_Password_Manager::validate_strong_password($errors, $user_data);
+	return MB_Strong_Password_Manager::validate_strong_password( $errors, $user_data );
 }
-

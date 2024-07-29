@@ -8,9 +8,12 @@ composer_install:
 
 .PHONY: lint
 lint:
-	composer install
+	vendor/bin/phpcs includes test mb-force-strong-passwords.php --standard=WordPress
 
+.PHONY: lint-fix
+lint-fix:
+	vendor/bin/phpcbf includes test mb-force-strong-passwords.php --standard=WordPress
 
 .PHONY: test
 test:
-	vendor/bin/phpunit
+	php vendor/bin/phpunit --bootstrap bootstrap.php  test/*
