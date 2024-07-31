@@ -42,6 +42,8 @@ function wp_verify_nonce() {
 	return true;
 }
 
+function Wp_Filesystem() {}
+
 define( 'MB_FSP_COMMON_PASSWORD_FILE', 'test.txt' );
 define( 'MB_FSP_WEAK_ROLES', 'subscriber,contributor' );
 define( 'MB_FSP_CAPS_CHECK', 'publish_posts,upload_files,edit_published_posts' );

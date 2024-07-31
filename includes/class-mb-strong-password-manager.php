@@ -50,10 +50,20 @@ class MB_Strong_Password_Manager {
 	 * @return array
 	 */
 	public static function parse_user_data( $user_data ): array {
-		$password  = ( isset( $_POST['pass1'], $_POST['pass1_nonce'] ) && wp_verify_nonce( sanitize_key( $_POST['pass1_nonce'] ) && trim( $_POST['pass1'] ) ) ? sanitize_text_field( $_POST['pass1'] ) : false );
+		$nonce_verified = true;
+		// Only user profile updates have a nonce attached.
+		if (
+			isset( $_POST['_wp_http_referer'] ) &&
+			'/wp-admin/profile.php' === $_POST['_wp_http_referer']
+			&& isset( $_POST['_wpnonce'] )
+		) {
+			$nonce_verified = wp_verify_nonce( $_POST['_wpnonce'], 'update-user_' . sanitize_text_field( $user_data->ID ) ) === 1;
+		}
+
 		$role      = isset( $_POST['role'] ) ? sanitize_text_field( $_POST['role'] ) : false;
 		$user_id   = isset( $user_data->ID ) ? sanitize_text_field( $user_data->ID ) : false;
 		$user_name = isset( $_POST['user_login'] ) ? sanitize_text_field( $_POST['user_login'] ) : $user_data->user_login;
+		$password  = isset( $_POST['pass1'] ) && $nonce_verified ? sanitize_text_field( $_POST['pass1'] ) : false;
 
 		return array( $password, $role, $user_id, $user_name );
 	}
@@ -100,6 +110,8 @@ class MB_Strong_Password_Manager {
 	public static function fetch_common_password_list(): array {
 		global $wp_filesystem;
 
+		WP_Filesystem();
+
 		if ( ! $wp_filesystem->exists( MB_FSP_COMMON_PASSWORD_FILE ) ) {
 			return array();
 		}
@@ -124,7 +136,7 @@ class MB_Strong_Password_Manager {
 		}
 
 		// Here's some more rigorous char checks for a strong password.
-		list( $lower, $upper, $digit, $repeat) = array( false, false, false, true );
+		list( $lower, $upper, $digit, $repeat) = array( false, false, false, false );
 
 		/**
 		 * Iterate over each character in the password for the following rules:
@@ -138,7 +150,7 @@ class MB_Strong_Password_Manager {
 				++$char_count;
 
 				if ( $char_count > 2 ) {
-					$repeat = false;
+					$repeat = true;
 				}
 			} else {
 				$char_count = 1;
@@ -153,7 +165,9 @@ class MB_Strong_Password_Manager {
 			}
 		}
 
-		if ( in_array( false, array( $lower, $upper, $digit, $repeat ), true ) ) {
+		if (
+			in_array( false, array( $lower, $upper, $digit ), true ) ||
+			$repeat ) {
 			return false;
 		}
 
